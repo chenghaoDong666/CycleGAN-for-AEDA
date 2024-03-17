@@ -25,13 +25,18 @@ from models import create_model
 from util.visualizer import Visualizer
 
 if __name__ == '__main__':
+    # 获取训练参数设置
     opt = TrainOptions().parse()   # get training options
+    # 创建数据集
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
+    # 数据集number
     dataset_size = len(dataset)    # get the number of images in the dataset.
     print('The number of training images = %d' % dataset_size)
-
+    # 创建模型
     model = create_model(opt)      # create a model given opt.model and other options
+    # 模型的一些设置工作，比如加载并打印网络结构，创建调度器
     model.setup(opt)               # regular setup: load and print networks; create schedulers
+    # 可视化器对象，用于显示/保存图像和绘制图表
     visualizer = Visualizer(opt)   # create a visualizer that display/save images and plots
     total_iters = 0                # the total number of training iterations
 
