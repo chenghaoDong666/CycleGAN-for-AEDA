@@ -83,7 +83,10 @@ def get_transform(opt, params=None, grayscale=False, method=transforms.Interpola
     if grayscale:
         transform_list.append(transforms.Grayscale(1))
     if 'resize' in opt.preprocess:
-        osize = [opt.load_size, opt.load_size]
+        if len(opt.load_size)==1:
+            osize = [opt.load_size[0], opt.load_size[0]]
+        elif len(opt.load_size)==2:
+            osize = [opt.load_size[0], opt.load_size[1]]
         transform_list.append(transforms.Resize(osize, method))
     elif 'scale_width' in opt.preprocess:
         transform_list.append(transforms.Lambda(lambda img: __scale_width(img, opt.load_size, opt.crop_size, method)))
